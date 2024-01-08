@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contador Regresivo</title>
+    <style>
+        body {
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif, sans-serif;
+            text-align: center;
+            background-color:black;
+            background-size: cover;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-size: cover;
+            background-image: url('fondo.jpg');
+        }
+
+        h1 {
+            font-size: 24px;
+            font-weight: bold;
+            color: white;
+        }
+        #contador {
+            font-size: 24px;
+            font-weight: bold;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <h1>Esta página estará disponible en: <br> <div id="contador"> 00:00:00</div> </h1>
+
+    <script>
+        // Establecer la fecha y hora de finalización 
+        const fechaFinalizacion = new Date('2024-01-09T09:30:00').getTime();
+
+        // Actualizar el contador cada segundo
+        const intervalo = setInterval(() => {
+            const ahora = new Date().getTime();
+            const diferencia = fechaFinalizacion - ahora;
+
+            // Calcular horas, minutos y segundos
+            const horas = Math.floor(diferencia / (1000 * 60 * 60));
+            const minutos = Math.floor((diferencia % (1000 * 60 * 60)) / (1000 * 60));
+            const segundos = Math.floor((diferencia % (1000 * 60)) / 1000);
+
+            // Mostrar el contador en el elemento con el id "contador"
+            document.getElementById('contador').innerHTML = `${String(horas).padStart(2, '0')}:${String(minutos).padStart(2, '0')}:${String(segundos).padStart(2, '0')}`;
+
+            // Si la cuenta regresiva ha terminado, limpiar el intervalo y redirigir a otra página
+            if (diferencia < 0) {
+                clearInterval(intervalo);
+                window.location.href = 'laura.html'; 
+            }
+        }, 1000);
+    </script>
+</body>
+</html>
